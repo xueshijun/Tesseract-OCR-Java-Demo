@@ -44,7 +44,7 @@ public class SaveInternetImage {
   		  String photoUrl ="http://price.360buyimg.com/gp280127,3.png";
   		  /*photoUrl.substring(photoUrl.lastIndexOf("/")的方法将返回最后一个符号为
   		  * ‘/’后photoUrl变量中的所有字符，包裹此自身符号*/
-  		  String fileName = photoUrl.substring(photoUrl.lastIndexOf("/"));
+  		  String fileName = photoUrl.substring(photoUrl.lastIndexOf("/")+1);
   		  String filePath = "E:";
   		  /*调用函数，并且进行传参*/ 
   		  if(pic.saveUrlAs(photoUrl, filePath + fileName)){

@@ -3,8 +3,9 @@ package com.htmlparse.threesixzerobuy;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
- 
 
+import java.util.ArrayList;   
+ 
 public class JingDongItem  {
  
 	private String strMarketPrice=null;//市场价
@@ -15,19 +16,12 @@ public class JingDongItem  {
 	private String strItemOnShelfDate=null;//上架时间
 	private String strItemCompany=null;//生产厂家
 	private String strItemWeight=null;//商品毛重
-	private ItemType strItemTopType=null;//商品顶级分类
-	public int  intItemTypeCount=4;
-	private ItemType []strItemType=new ItemType[intItemTypeCount];//商品分类
-	public  int  intItemImgCount=5;
-	private ItemImg [] strItemImg=new ItemImg[intItemImgCount];//商品配图 
+	private ItemType strItemTopType=null;//商品顶级分类 
 	
-	 
-//	public JingDongItem(String url) { 
-//		super(url);
-//	} 
- 
-	public JingDongItem(Document doc) { 
-//		this.strUrl=super.strUrl;
+	private ArrayList<ItemType> listItemType=null; 
+	private ArrayList<ItemImg> listItemImg=null;   
+	
+	public JingDongItem(Document doc) {  
 		 initPrice(doc); 
 		 initItemType(doc);
 		 initItemDetails(doc);
@@ -42,7 +36,7 @@ public class JingDongItem  {
 			Element link=doc.select(".right-extra>#name>h1").first();
 			return link.text();
 		} 
-		return null;
+		return "";
 	}
 
 	
@@ -127,16 +121,15 @@ public class JingDongItem  {
 	 ******************************/
 	public void  initItemType(Document doc){
 		if(doc!=null){ 
+			listItemType = new ArrayList<ItemType>();
 			Element link=doc.select("div.breadcrumb>strong").first();  
 			strItemTopType=new ItemType(link.text(),link.attr("href"));
 			
 			Elements links=doc.select("div.breadcrumb>span>a");
-			int counter=0;
+ 
 			for(Element link1:links){ 
-				strItemType[counter++]=new ItemType(link1.text(),link1.attr("href"));  
-				if(counter>=intItemTypeCount)
-					break;
-			} 	
+				listItemType.add(new ItemType(link1.text(),link1.attr("href")));
+			}  
 		} 
 	}
 	//封装商品类型
@@ -160,8 +153,8 @@ public class JingDongItem  {
 	 * 商品类型细分
 	 * @return
 	 */
-	public ItemType[] getItemType(){
-		return this.strItemType;
+	public  ArrayList<ItemType> getItemType(){
+		return this.listItemType;
 	}
 
 	
@@ -218,17 +211,20 @@ public class JingDongItem  {
 	 * 生产厂家
 	 * @return
 	 */
-	public String getItemCompany(){return this.strItemMadeArea;}
+	public String getItemCompany(){
+		return this.strItemMadeArea;}
 	/**
 	 * 商品产地
 	 * @return
 	 */
-	public String getItemMadeArea(){return this.strItemCompany;}
+	public String getItemMadeArea(){
+		return this.strItemCompany;}
 	/**
 	 * 上架时间
 	 * @return
 	 */
-	public String getItemOnShelfDate(){return this.strItemOnShelfDate;}
+	public String getItemOnShelfDate(){
+		return this.strItemOnShelfDate;}
 	/**
 	 * 商品毛重
 	 * @return
@@ -257,20 +253,17 @@ public class JingDongItem  {
 	}
 	 
 	//获取商品配图
-	public ItemImg[] getItemImg(Document doc){ 
+	public ArrayList<ItemImg> getItemImg(Document doc){ 
 		if(doc!=null){   
+			listItemImg = new ArrayList<ItemImg>();
 			Elements links=doc.select(".right-extra>div#preview>div#spec-n5>div#spec-list>ul.list-h>li>img[src]"); 
-			int counter=0;
-		    for(Element link:links){  
-		    	strItemImg[counter++]=new ItemImg(
-		    			 link.attr("src").trim(),
-		    			 link.attr("src").replace("360buyimg.com/n5", "360buyimg.com/n0").trim());
-		    	 if(counter>(--intItemImgCount))//只存intItemImgCount个，多余的不处理。
-		    		 break;
-		    }
-		    return strItemImg;
+ 
+		    for(Element link:links){ 
+		    	listItemImg.add( new ItemImg(  link.attr("src").trim(),  link.attr("src").replace("360buyimg.com/n5", "360buyimg.com/n0").trim())); 
+		    } 
+		    return listItemImg;
 	    }  
-		return null;
+		return listItemImg;
 	}
 //	/**
 //	 * 消费者评论*/
@@ -295,13 +288,10 @@ public class JingDongItem  {
 				return link.text();
 			} 
 		}catch(Exception ex){
-			return null;
+			return "";
 		}
-		return null;
-	}
-	
-	
-
+		return "";
+	} 
 	
 	/**
 	 * 【异步数据】
@@ -314,9 +304,9 @@ public class JingDongItem  {
 				return  link.text(); 
 			}  
 		}catch(Exception ex){
-			return null;
+			return "";
 		}
-		return null;
+		return "";
 	}
 	
 	
@@ -334,9 +324,9 @@ public class JingDongItem  {
 				return  itemSalesPromotionInfo.getElementsByTag("div").text(); 
 			}  		
 		}catch(Exception ex){
-			return null;
+			return "";
 		}
-		return null;
+		return "";
 	}
 
 

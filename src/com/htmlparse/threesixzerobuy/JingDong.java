@@ -1,6 +1,10 @@
 package com.htmlparse.threesixzerobuy;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.Connection.Method;
@@ -27,14 +31,14 @@ public class JingDong extends TSZPage{
 	JingDongItem jingDongItem;
  
 	public JingDong(String url){
-		super(url);  
-		
-		page=new TSZPage(url); 
-		
-		doc=initPage();
-		mobileDoc=initMobilePage();
-		
-		jingDongItem=new JingDongItem(doc); 
+		super(url);
+		if((page=new TSZPage(url))!=null){
+			 
+			if((doc=initPage())!=null){
+				mobileDoc=initMobilePage();
+				jingDongItem=new JingDongItem(doc);
+			}
+		}
 	}
 
 	/**
@@ -46,12 +50,12 @@ public class JingDong extends TSZPage{
 				return  Jsoup.connect(this.strUrl).timeout(CONNECT_Time_OUT).get();
 			} catch (IOException e) {  
 				System.out.println("超时限制太短,"+CONNECT_Time_OUT+"当前超时限制增加中[第一次自动增加]...");
-				CONNECT_Time_OUT+=1000;
+				CONNECT_Time_OUT+=500;
 				try {
 					return  Jsoup.connect(this.strUrl).timeout(CONNECT_Time_OUT).get();
 				} catch (IOException e1) {
 					System.out.println("超时限制太短,"+CONNECT_Time_OUT+"当前超时限制增加中[第二次自动增加]...");
-					CONNECT_Time_OUT+=1000;
+					CONNECT_Time_OUT+=500;
 					try {
 						return  Jsoup.connect(this.strUrl).timeout(CONNECT_Time_OUT).get();
 					} catch (IOException ex) {
@@ -182,7 +186,7 @@ public class JingDong extends TSZPage{
 		return  jingDongItem.getTopItemType();
 	}
 	//商品类型细分
-	public ItemType[] getItemType(){
+	public ArrayList<ItemType> getItemType(){
 		return  jingDongItem.getItemType();
 	}
 	
@@ -207,21 +211,15 @@ public class JingDong extends TSZPage{
 	/**
 	 * ？？？？？？？？？？？？？？？？？（存在一点问题，数组溢出）
 	 * 获取商品配图
+	 * @return 
 	 * @return
 	 */
-	public ItemImg[] getItemImg(){
-		return jingDongItem.getItemImg(doc);
+	public   ArrayList<ItemImg>  getItemImg(){
+		return  jingDongItem.getItemImg(doc);
 	}
 //	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	 
 	/**===========================*/ 
 	
 	/**

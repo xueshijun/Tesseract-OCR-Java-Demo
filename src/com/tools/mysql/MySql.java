@@ -12,11 +12,25 @@ import java.sql.DriverManager;
 public class MySql {
  
  
-	public   Connection getConnetction() {
+	/**
+	 * 1.String url = "jdbc:mysql://localhost:3306/"+strDBName+"?useUnicode=true&characterEncoding=utf8";
+	 * DriverManager.getConnection(url, user, password);
+//        	
+	 * 2.String url = "jdbc:mysql://localhost:3306/"+strDBName+"?user=root&password=xueshijun&unicode=true&charachterEncoding=utf8";
+	 * DriverManager.getConnection(url);
+
+	 * 
+	 * 
+	 * @param strDBName
+	 * @return
+	 */
+	public   Connection getConnetction(String strDBName) {
 		String driver = "com.mysql.jdbc.Driver"; 
     	// URL指向要访问的数据库名
 //    	String url = "jdbc:mysql://localhost:3306/stu?characterEncoding=utf8";
-		String url = "jdbc:mysql://localhost:3306/stu?user=root&password=xueshijun&useUnicode=true&characterEncoding=gbk";
+//		jdbc:mysql://localhost:3306/mysql?useUnicode=true&characterEncoding=utf-8(注意：不要出现任何空格，否则出错)
+		String url = "jdbc:mysql://localhost:3306/"+strDBName+"?useUnicode=true&characterEncoding=utf8";
+//		String url = "jdbc:mysql://localhost:3306/"+strDBName+"?user=root&password=xueshijun&unicode=true&charachterEncoding=utf8";
     	 
 
 
@@ -29,8 +43,8 @@ public class MySql {
         	// 加载驱动程序 
         	Class.forName(driver); 
         	// 连接数据库 
-//        	return DriverManager.getConnection(url, user, password);
-        	return DriverManager.getConnection(url);
+        	return DriverManager.getConnection(url, user, password);
+//        	return DriverManager.getConnection(url);
         } 
         catch(Exception e) 
         { 

@@ -1,0 +1,43 @@
+use mystore
+create table product(
+PageUrl varchar(100)
+PageTitle varchar(300)
+PageKeyWords varchar(300)
+PageDescription varchar(600)
+
+ItemTitle  varchar(100) 
+ItemNumber varchar(100)
+ItemName varchar(100)//商品名
+
+MarketPrice varchar(40)
+JingDongPrice varchar(40)
+JingDongPriceUrl varchar(100)
+
+ItemMadeArea varchar(100)//商品产地
+ItemOnShelfDate varchar(100)//上架时间
+ItemCompany varchar(100)//生产厂家
+ItemWeight varchar(50)//商品毛重
+ItemTitleAdvertiseWord varchar(200)//标题中的广告语
+ItemSalesPromotionInfo varchar(400)//获取促销信息
+ItemLargessInfo varchar(200)//赠品信息(暂时没有获取到)
+ItemType varchar(200)
+primary key(ItemNumber)
+)
+
+
+
+
+
+
+ItemType strItemTopType=null;//商品顶级分类 
+	private ItemType []strItemType=new ItemType[intItemTypeCount];//商品分类 
+	private ItemImg [] strItemImg=new ItemImg[intItemImgCount];//商品配图 
+	
+   
+5
+------------------
+获取商品促销信息：	已优惠￥36.0
+获取商品标题中的促销信息(广告词)：	直降31％！狂促贺奥运开幕，可使用“日百满299返618店庆东券”
+获取赠品信息：	
+781ms
+=============END================

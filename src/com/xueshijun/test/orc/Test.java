@@ -12,7 +12,7 @@ public class Test {
      * @param args  
      */  
     public static void main(String[] args) {   
-        String path = "D:\\1.png";      
+        String path = "E:\\gp280127,3.png";      
         try {  
         	int count=0;
         	while(count<10) {

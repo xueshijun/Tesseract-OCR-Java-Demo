@@ -6,9 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import com.htmlparse.threesixzerobuy.JingDongAbstract;
 
-public class TSZPage extends JingDongAbstract {
+public class TSZPage extends PageAbstract {
 	
 	
 
@@ -28,6 +27,11 @@ public class TSZPage extends JingDongAbstract {
 		this.strMobileUrl=url.replace("http://www.360buy.com/", "http://m.360buy.com/");
 	}
 	 
+	//初始化
+	public TSZPage(String url,String Old,String New){
+		this.strUrl=url;  
+		this.strMobileUrl=url.replace(Old, New);
+	}
 	
 	/**获取页面URL*/
 	public String getPageUrl() { 
