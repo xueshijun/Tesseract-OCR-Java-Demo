@@ -11,7 +11,7 @@ public class Test {
     /** *//**  
      * @param args  
      */  
-    public static void main(String[] args) {   
+    public void mymain(String[] args) {   
         String path = "E:\\gp280127,3.png";      
         try {  
         	int count=0;

@@ -66,7 +66,7 @@ public class InternetImage {
 		// TODO Auto-generated constructor stub
 	}
 	
-    public static void main(String[] args) { 
+    public static void mymain(String[] args) { 
 
     	GetPicture.snatchPicture("http://price.360buyimg.com/gp1000195393,3.png", "C://7755p2c"); 
 

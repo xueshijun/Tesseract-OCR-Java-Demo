@@ -60,6 +60,7 @@ public class JingDong extends TSZPage{
 						return  Jsoup.connect(this.strUrl).timeout(CONNECT_Time_OUT).get();
 					} catch (IOException ex) {
 						System.out.println("超时限制太短,"+CONNECT_Time_OUT+"当前超时限制已经增加两次，不再自动增加！");
+						CONNECT_Time_OUT=500;
 					}
 				}
 			}
@@ -95,8 +96,8 @@ public class JingDong extends TSZPage{
 //				e.printStackTrace();
 				System.out.println("网速太慢，超时限制太短,"+CONNECT_Time_OUT+"，请增加超时限制...");
 //				CONNECT_Time_OUT+=1000; 
-			}
-			return null; 
+				return null; 
+			} 
 	} 
 	
 	/**

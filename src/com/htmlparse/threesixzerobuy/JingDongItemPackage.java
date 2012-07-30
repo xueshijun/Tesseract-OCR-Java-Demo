@@ -72,7 +72,7 @@ public class JingDongItemPackage {
 	}
 	
 	public String replaceString(String str){
-		HashMap map=new HashMap();
+		HashMap<String, String> map=new HashMap<String, String>();
 		if(str==""||str==null){
 			return "";
 		}

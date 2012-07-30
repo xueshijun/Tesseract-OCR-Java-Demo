@@ -8,23 +8,25 @@ import java.util.ArrayList;
  
 public class JingDongItem  {
  
-	private String strMarketPrice=null;//市场价
-	private String strJingDongPrice=null;//京东价
-	private String strItemNumber=null;//商品编号
-	private String strItemName=null;//商品名
-	private String strItemMadeArea=null;//商品产地
-	private String strItemOnShelfDate=null;//上架时间
-	private String strItemCompany=null;//生产厂家
-	private String strItemWeight=null;//商品毛重
+	private String strMarketPrice="";//市场价
+	private String strJingDongPrice="";//京东价
+	private String strItemNumber="";//商品编号
+	private String strItemName="";//商品名
+	private String strItemMadeArea="";//商品产地
+	private String strItemOnShelfDate="";//上架时间
+	private String strItemCompany="";//生产厂家
+	private String strItemWeight="";//商品毛重
 	private ItemType strItemTopType=null;//商品顶级分类 
 	
 	private ArrayList<ItemType> listItemType=null; 
 	private ArrayList<ItemImg> listItemImg=null;   
 	
 	public JingDongItem(Document doc) {  
-		 initPrice(doc); 
-		 initItemType(doc);
-		 initItemDetails(doc);
+		if(doc!=null){
+			 initPrice(doc); 
+			 initItemType(doc);
+			 initItemDetails(doc);
+		 }
 	} 
 	
 	
@@ -51,16 +53,12 @@ public class JingDongItem  {
 			for(Element link:links){ 
 				switch(counter)
 				{
-					case 0://市场价
-//						Elements docMarketPrice=doc.select(".right-extra>#summary>li"+">del");
-						String str=link.getElementsByTag("del").text();//市场价
-						strMarketPrice=str.replace("￥", "");
+					case 0://市场价 
+						strMarketPrice=link.getElementsByTag("del").text().replace("￥", "");//市场价 
 						strItemNumber=link.getElementsByTag("span").text().replace("商品编号：","");//商品编号span[style]
 						break;
-					case 1://京东价
-						Elements docJDPriceSelector=doc.select(".right-extra>#summary>li");
-						Elements pngJDPrice =  docJDPriceSelector.select("img[src$=.png]");
-						strJingDongPrice=pngJDPrice.attr("src");  
+					case 1://京东价 
+						strJingDongPrice=link.select("img[src$=.png]").attr("src");  
 						break;
 					}  
 					counter++;
@@ -259,7 +257,7 @@ public class JingDongItem  {
 			Elements links=doc.select(".right-extra>div#preview>div#spec-n5>div#spec-list>ul.list-h>li>img[src]"); 
  
 		    for(Element link:links){ 
-		    	listItemImg.add( new ItemImg(  link.attr("src").trim(),  link.attr("src").replace("360buyimg.com/n5", "360buyimg.com/n0").trim())); 
+		    	listItemImg.add( new ItemImg(  link.attr("src").trim(),	link.attr("src").replace("360buyimg.com/n5", "360buyimg.com/n0").trim())); 
 		    } 
 		    return listItemImg;
 	    }  

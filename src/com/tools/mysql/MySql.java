@@ -25,17 +25,17 @@ public class MySql {
 	 * @return
 	 */
 	public   Connection getConnetction(String strDBName) {
-		String driver = "com.mysql.jdbc.Driver"; 
+		String driver = "com.mysql.jdbc.Driver";  
     	// URL指向要访问的数据库名
 //    	String url = "jdbc:mysql://localhost:3306/stu?characterEncoding=utf8";
-//		jdbc:mysql://localhost:3306/mysql?useUnicode=true&characterEncoding=utf-8(注意：不要出现任何空格，否则出错)
-		String url = "jdbc:mysql://localhost:3306/"+strDBName+"?useUnicode=true&characterEncoding=utf8";
-//		String url = "jdbc:mysql://localhost:3306/"+strDBName+"?user=root&password=xueshijun&unicode=true&charachterEncoding=utf8";
+		String url = "jdbc:mysql://localhost:3306/"+strDBName+"?useUnicode=true&characterEncoding=utf8";//(注意：不要出现任何空格，否则出错)
+//		String url = "jdbc:mysql://localhost:3306/"+strDBName+"?user=root&password=xueshijun&unicode=true&charachterEncoding=utf8"; 
     	 
 
 
     	// MySQL配置时的用户名 
-    	String user = "root"; 
+    	String user = "root";
+//    	String user = "xueshijun"; 
     	// Java连接MySQL配置时的密码 
     	String password = "xueshijun"; 
 		try

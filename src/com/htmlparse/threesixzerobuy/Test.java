@@ -24,7 +24,7 @@ public class Test{
 	 * 
 	 * http://www.360buy.com/product/280127.html
 	 */
-	public static void main(String[] args) { 
+	public static void  main(String[] args) { 
 
 //		long [] count=new long[50];
 		String url=null;

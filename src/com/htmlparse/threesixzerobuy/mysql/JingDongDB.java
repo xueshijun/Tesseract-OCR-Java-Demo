@@ -21,133 +21,126 @@ import com.tools.mysql.MySql;
 public class JingDongDB{
 	public final static String STRDATABASE_NAME="mystore";
 	public final static String STRTABLE_NAME="product";
+	public final static String STRTABLE_BAD_NAME="badurl";
 	
-//	public final static String STRCREATEDATABASE="CREATE DATABASE "+STRDATABASE_NAME +"default character set utf8";
-	public final static String STRCREATEDATABASE="CREATE DATABASE "+STRDATABASE_NAME;
+	public final static String STRCREATE_DATABASE="CREATE DATABASE "+STRDATABASE_NAME +" default character set utf8";	
+	public final static String STRALTER_DATABASE_UTF8="ALTER DATABASE "+STRDATABASE_NAME +" character set utf8";
+	public final static String STRALTER_TABLE_UTF8="alter table "+STRTABLE_NAME+" character set utf8";
 	
-	public final static String STRALTERDATABASE_UTF8="ALTER DATABASE "+STRDATABASE_NAME +" character set utf8";
-	public final static String STRALTERTABLE_UTF8="alter table "+STRTABLE_NAME+" character set utf8";
-	
-	public final static String STRCREATETABLE=
-			"create table "+STRTABLE_NAME+"(" 
-				+"PageUrl varchar(1000),"
-				+"PageTitle varchar(1000),"
-				+"PageKeyWords varchar(1000),"
-				+"PageDescription varchar(1000)," 
-				+"ItemTitle  varchar(400) ,"
-				+"ItemNumber varchar(400),"
-				+"ItemName varchar(1000),"//商品名 
-				+"MarketPrice varchar(40),"
-				+"JingDongPrice varchar(40),"
-				+"JingDongPriceUrl varchar(200)," 
-				+"ItemMadeArea varchar(100),"//商品产地
-				+"ItemOnShelfDate varchar(100),"//上架时间
-				+"ItemCompany varchar(100),"//生产厂家
-				+"ItemWeight varchar(50),"//商品毛重
-				+"ItemTitleAdvertiseWord varchar(1000),"//标题中的广告语
-				+"ItemSalesPromotionInfo varchar(1000),"//获取促销信息
-				+"ItemLargessInfo varchar(1000),"//赠品信息(暂时没有获取到)
-				+"ItemType varchar(1000),"
-				+"primary key(ItemNumber)" 
-			+")";
+	 
+	public final static String STRCREATE_PRODUCT_TABLE=
+		"create table product(" 
+			+"PageUrl varchar(200),"
+			+"PageTitle varchar(200),"
+			+"PageKeyWords varchar(200),"
+			+"PageDescription LONGTEXT," 
+			+"ItemTitle  varchar(200) ,"
+			+"ItemNumber varchar(200),"
+			+"ItemName varchar(200),"
+			+"MarketPrice varchar(40),"
+			+"JingDongPrice varchar(40),"
+			+"JingDongPriceUrl varchar(200)," 
+			+"ItemMadeArea varchar(100),"
+			+"ItemOnShelfDate varchar(100),"
+			+"ItemCompany varchar(100),"
+			+"ItemWeight varchar(50),"
+			+"ItemTitleAdvertiseWord varchar(200),"
+			+"ItemSalesPromotionInfo varchar(200),"
+			+"ItemLargessInfo varchar(200),"
+			+"ItemType varchar(200),"
+			+"primary key(ItemNumber)" 
+		+")";
 
+	//存储异常页面URL的表
+	public final static String STRCREATE_BAD_TABLE="CREATE TABLE "+STRTABLE_BAD_NAME+"(" +
+	"URL varchar(200)" +
+	")";
 	
-	static MySql mysql=new MySql();
-	public static void main(String[] args) {
-		try{ 	
-			JingDongItemPackage jingDongItemPackage=null;
-			Connection conn=mysql.getConnetction("test"); 
-			JingDong.CONNECT_Time_OUT=1000;
-			
-			if(!conn.isClosed()) {
-				System.out.println("建立数据库连接...."); 
-				System.out.println("创建数据库...."); 
-				
-				CreateDataBase(conn,STRCREATEDATABASE);
-//				AlterDataBase(conn,STRALTERDATABASE_UTF8);
-				
-				conn=mysql.getConnetction(STRDATABASE_NAME);				
-				CreateTable(conn,STRCREATETABLE);
-//				AlterTable(conn,STRALTERTABLE_UTF8);
-				
-				JingDong jingDong=new JingDong("http://www.360buy.com/product/280127.html");   
-				String strItemType=jingDong.getTopItemType().TypeName+"|";
-				ArrayList<ItemType> itemType=jingDong.getItemType(); 
-				for(int i=0;i<itemType.size();i++){
-					if(i!=itemType.size()-1){
-						strItemType+=itemType.get(i).TypeName+"|"; 
-					}else{
-						strItemType+=itemType.get(i).TypeName;
-					} 
-				} 
-//							String PageUrl,String PageTitle,String PageKeyWords,String PageDescription,
-//							String ItemNumber,String ItemTitle,String ItemName,String MarketPrice,
-//							String JingDongPrice,String JingDongPriceUrl,String ItemMadeArea,
-//							String ItemOnShelfDate,String ItemCompany,String ItemWeight,
-//							String ItemTitleAdvertiseWord,String ItemSalesPromotionInfo,
-//							String ItemLargessInfo,String ItemType) 
-				
-				
-				jingDongItemPackage=new JingDongItemPackage(
-						jingDong.getPageUrl(),jingDong.getPageTitle(),jingDong.getPageKeyWords(),jingDong.getPageDescription(),
-						jingDong.getItemId(),jingDong.getItemTitle(),jingDong.getItemName(),jingDong.getMarketPrice(),
-						"",jingDong.getJingDongPrice(),jingDong.getItemMadeArea(),
-						jingDong.getItemOnShelfDate(),jingDong.getItemCompany(),jingDong.getItemWeight(),
-						jingDong.getItemTitleAdvertiseWord(),jingDong.getItemSalesPromotionInfo(),
-						jingDong.getItemLargessInfo(),strItemType);
-//				System.out.println(jingDongItemPackage.ItemCompany);
-//				System.out.println(jingDongItemPackage.ItemLargessInfo);
-//				System.out.println(jingDongItemPackage.ItemMadeArea);
-//				System.out.println(jingDongItemPackage.ItemName);
-//				System.out.println(jingDongItemPackage.ItemNumber);
-//				System.out.println(jingDongItemPackage.ItemOnShelfDate);
-//				System.out.println(jingDongItemPackage.ItemSalesPromotionInfo);
-//				System.out.println(jingDongItemPackage.ItemTitle);
-//				System.out.println(jingDongItemPackage.ItemTitleAdvertiseWord);
-//				System.out.println(jingDongItemPackage.ItemType);
-//				System.out.println(jingDongItemPackage.ItemWeight);
-//				System.out.println(jingDongItemPackage.JingDongPrice);
-//				System.out.println(jingDongItemPackage.JingDongPriceUrl);
-//				System.out.println(jingDongItemPackage.MarketPrice);
-//				System.out.println(jingDongItemPackage.PageDescription);
-//				System.out.println(jingDongItemPackage.PageKeyWords);
-//				System.out.println(jingDongItemPackage.PageTitle);
-//				System.out.println(jingDongItemPackage.PageUrl);
- 
-				if(InsertItem(conn, jingDongItemPackage)){
-					System.out.println("成功插入数据！");
-				}
-				else{ 
-					System.out.println("插入数据失败！");
-				}
-				ResultSet rs=mysql.getRes(conn, "select * from "+STRTABLE_NAME);
-				while(rs.next()){
-					System.out.println(rs.getString(1));
-					System.out.println(rs.getString(2)); 
-					System.out.println(rs.getString(3)); 
-					System.out.println(rs.getString(4));
-					System.out.println(rs.getString(5));
-					System.out.println(rs.getString(6));
-					System.out.println(rs.getString(7));
-					System.out.println(rs.getString(8));
-					System.out.println(rs.getString(9));
-					System.out.println(rs.getString(10));
-					System.out.println(rs.getString(11));
-					System.out.println(rs.getString(12));
-					System.out.println(rs.getString(13));
-					System.out.println(rs.getString(14));
-					System.out.println(rs.getString(15));
-					System.out.println(rs.getString(16));
-					System.out.println(rs.getString(17));
-					System.out.println(rs.getString(18)); 
-				}
-			}
-			else{
-				System.out.println("不好意思！数据库连接已关闭了！");
-			}
-		}catch(Exception ex){
-			ex.printStackTrace(); 
-		} 
+	
+	public static MySql mysql=new MySql();
+	public   void mymain(String[] args) {
+//		try{ 	
+//			JingDongItemPackage jingDongItemPackage=null;
+//			Connection conn=mysql.getConnetction("test"); 
+//			JingDong.CONNECT_Time_OUT=1000;
+//			
+//			if(!conn.isClosed()) {
+//				System.out.println("建立数据库连接...."); 
+//				System.out.println("创建数据库...."); 
+//				
+//				CreateDataBase(conn,STRCREATE_DATABASE);
+////				AlterDataBase(conn,STRALTER_DATABASE_UTF8);
+//				
+//				conn=mysql.getConnetction("mystore");				
+//				CreateTable(conn, STRCREATE_PRODUCT_TABLE);
+////				AlterTable(conn,STRALTER_TABLE_UTF8); 
+//				
+//				CreateTable(conn, STRCREATE_BAD_TABLE);
+//				
+//				int count=100516;//100001-700001
+//				while(count<700001){ 
+//					String url="http://www.360buy.com/product/"+count+".html"; 
+//	 				JingDong jingDong=new JingDong(url); 
+//	 				Document doc=jingDong.initPage();
+//	 				if(doc==null||doc.title()=="该页无法显示"){//连接不上
+//	 					mysql.executeSql(conn, "insert into "+STRTABLE_BAD_NAME+" values ('"+url+"')");
+//	 					continue;
+//	 				} 
+//	 				String strItemType=jingDong.getTopItemType().TypeName+"|";
+//	 				ArrayList<ItemType> itemType=jingDong.getItemType(); 
+//	 				for(int i=0;i<itemType.size();i++){
+//	 					if(i!=itemType.size()-1){
+//	 						strItemType+=itemType.get(i).TypeName+"|"; 
+//	 					}else{
+//	 						strItemType+=itemType.get(i).TypeName;
+//	 					} 
+//	 				} 
+//	 				jingDongItemPackage=new JingDongItemPackage(
+//	 						jingDong.getPageUrl(),jingDong.getPageTitle(),jingDong.getPageKeyWords(),jingDong.getPageDescription(),
+//	 						jingDong.getItemId(),jingDong.getItemTitle(),jingDong.getItemName(),jingDong.getMarketPrice(),
+//	 						"",jingDong.getJingDongPrice(),jingDong.getItemMadeArea(),
+//	 						jingDong.getItemOnShelfDate(),jingDong.getItemCompany(),jingDong.getItemWeight(),
+//	 						jingDong.getItemTitleAdvertiseWord(),jingDong.getItemSalesPromotionInfo(),
+//	 						jingDong.getItemLargessInfo(),strItemType);
+//
+//	
+// 
+//					if(InsertItem(conn, jingDongItemPackage)){
+//						System.out.println("成功插入数据！");
+//					}
+//					else{ 
+//						System.out.println("插入数据失败！");
+//					}
+//					ResultSet rs=mysql.getRes(conn, "select * from "+STRTABLE_NAME);
+//					while(rs.next()){
+//						System.out.println(rs.getString(1));
+//							System.out.println(rs.getString(2)); 
+//						System.out.println(rs.getString(3)); 
+//						System.out.println(rs.getString(4));
+//						System.out.println(rs.getString(5));
+//							System.out.println(rs.getString(6));
+//						System.out.println(rs.getString(7));
+//						System.out.println(rs.getString(8));
+//						System.out.println(rs.getString(9));
+//						System.out.println(rs.getString(10));
+//						System.out.println(rs.getString(11));
+//						System.out.println(rs.getString(12));
+//						System.out.println(rs.getString(13));
+//						System.out.println(rs.getString(14));
+//						System.out.println(rs.getString(15));
+//						System.out.println(rs.getString(16));
+//						System.out.println(rs.getString(17));
+//						System.out.println(rs.getString(18)); 
+//					} 
+//					count++;
+//				}
+//			}
+//			else{
+//				System.out.println("不好意思！数据库连接已关闭了！");
+//			}
+//		}catch(Exception ex){
+//			ex.printStackTrace(); 
+//		} 
 	} 
 
 	
@@ -157,16 +150,19 @@ public class JingDongDB{
 	 * @param str
 	 * @return
 	 */
-	public static void CreateDataBase(Connection conn,String str){
+	public static boolean CreateDataBase(Connection conn,String str){
 		try{
 			if(mysql.executeSql(conn, str)>0){
 				System.out.println("创建数据库成功！"); 
+				return true;
 			} 
 			else {
 				System.out.println("已经存在该DB！"); 
+				return false;
 			} 
 		}catch(Exception ex){
 			System.out.println("已经存在该DB！2");
+			return false;
 		}
 	} 
 	/**
@@ -192,16 +188,19 @@ public class JingDongDB{
 	 * @param str
 	 * @return
 	 */
-	public static void CreateTable(Connection conn,String str){
+	public static boolean CreateTable(Connection conn,String str){
 		try{
 			if(mysql.executeSql(conn, str)>0){
 				System.out.println("创建表成功！"); 
+				return true;
 			}
 			else {
 				System.out.println("已经存在该表！"); 
+				return false;
 			}
 		}catch(Exception ex){
-			System.out.println("已经存在该表！2"); 
+			System.out.println(ex.getMessage()); 
+			return false;
 		}
 	}
 	

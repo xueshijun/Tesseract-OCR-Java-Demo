@@ -17,7 +17,7 @@ public class Jsoup01 {
 
  
 
-public static void main(String[] args) {
+public  void mymain(String[] args) {
 
  
 
