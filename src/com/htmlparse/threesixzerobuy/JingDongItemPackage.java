@@ -89,3 +89,27 @@ public class JingDongItemPackage {
 			}
 	} 
 }
+
+//jingDongItemPackage = new JingDongItemPackage(jingDong
+//		.getPageUrl(), jingDong.getPageTitle(),
+//		jingDong.getPageKeyWords(), jingDong
+//				.getPageDescription(), jingDong
+//				.getItemId(), jingDong.getItemTitle(),
+//				jingDong.getItemName(), jingDong
+//				.getMarketPrice(), "", jingDong
+//				.getJingDongPrice(), jingDong
+//				.getItemMadeArea(), jingDong
+//				.getItemOnShelfDate(), jingDong
+//				.getItemCompany(), jingDong
+//				.getItemWeight(), jingDong
+//				.getItemTitleAdvertiseWord(), jingDong
+//				.getItemSalesPromotionInfo(), jingDong
+//				.getItemLargessInfo(), strItemType);
+
+//	if (JingDongDB.InsertItem(conn, jingDongItemPackage)) {
+//		System.out.println("成功插入数据！");
+//		this.list1.add("成功插入数据！");
+//	} else {
+//		this.list1.add("插入数据失败！");
+//		System.out.println("插入数据失败！");
+//	} 

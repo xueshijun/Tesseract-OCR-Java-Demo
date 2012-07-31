@@ -35,19 +35,19 @@ public class JingDongDB{
 			+"PageKeyWords varchar(200),"
 			+"PageDescription LONGTEXT," 
 			+"ItemTitle  varchar(200) ,"
-			+"ItemNumber varchar(200),"
-			+"ItemName varchar(200),"
-			+"MarketPrice varchar(40),"
-			+"JingDongPrice varchar(40),"
-			+"JingDongPriceUrl varchar(200)," 
+			+"ItemNumber varchar(200),"//
+			+"ItemName varchar(200),"//
+			+"MarketPrice varchar(40),"//
+			+"JingDongPrice varchar(40),"//
+			+"JingDongPriceUrl varchar(200)," //
 			+"ItemMadeArea varchar(100),"
 			+"ItemOnShelfDate varchar(100),"
 			+"ItemCompany varchar(100),"
 			+"ItemWeight varchar(50),"
 			+"ItemTitleAdvertiseWord varchar(200),"
-			+"ItemSalesPromotionInfo varchar(200),"
+			+"ItemSalesPromotionInfo varchar(200),"//
 			+"ItemLargessInfo varchar(200),"
-			+"ItemType varchar(200),"
+			+"ItemType varchar(200),"//
 			+"primary key(ItemNumber)" 
 		+")";
 
@@ -256,4 +256,19 @@ public class JingDongDB{
 		
 	}
 
+	/**
+	 * 通用数据插入
+	 * @param conn
+	 * @param Items
+	 * @param Values
+	 * @return
+	 */
+	public static boolean GeneralInsertItem(Connection conn,String Items,String Values){
+		if(mysql.executeSql(conn, "insert into product("+Items+") values ("+Values+")")>0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }

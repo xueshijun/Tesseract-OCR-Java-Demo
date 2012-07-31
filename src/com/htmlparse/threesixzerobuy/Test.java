@@ -42,12 +42,12 @@ public class Test{
 //				break;
 //			}
 		Date beginTime=new Date();
-		JingDong.CONNECT_Time_OUT=500;
-
+		 
 		JingDong jingDong=new JingDong (url);
 
+		jingDong.setConnectionTimeout(500);
 		
-		System.out.println("页面超时限制:\t "+JingDong.CONNECT_Time_OUT); 
+		System.out.println("页面超时限制:\t "+jingDong.getConnectionTimeout()); 
 		System.out.println("页面URL:\t "+jingDong.getPageUrl());
 		System.out.println("移动页面URL:\t"+jingDong.getMobilePageUrl());
 		System.out.println("页面标题:\t"+jingDong.getPageTitle());

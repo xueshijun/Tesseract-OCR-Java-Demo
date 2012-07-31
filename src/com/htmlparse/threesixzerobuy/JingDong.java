@@ -22,7 +22,7 @@ import com.htmlparse.threesixzerobuy.JingDongItem.ItemType;
 public class JingDong extends TSZPage{ 
 
 	//页面超时限制
-	public static int CONNECT_Time_OUT=3000;
+	private  int CONNECT_Time_OUT=3000;
 	
 	Document doc=null;
 	Document mobileDoc=null;
@@ -50,17 +50,17 @@ public class JingDong extends TSZPage{
 				return  Jsoup.connect(this.strUrl).timeout(CONNECT_Time_OUT).get();
 			} catch (IOException e) {  
 				System.out.println("超时限制太短,"+CONNECT_Time_OUT+"当前超时限制增加中[第一次自动增加]...");
-				CONNECT_Time_OUT+=500;
+				this.CONNECT_Time_OUT+=500;
 				try {
 					return  Jsoup.connect(this.strUrl).timeout(CONNECT_Time_OUT).get();
 				} catch (IOException e1) {
 					System.out.println("超时限制太短,"+CONNECT_Time_OUT+"当前超时限制增加中[第二次自动增加]...");
-					CONNECT_Time_OUT+=500;
+					this.CONNECT_Time_OUT+=500;
 					try {
 						return  Jsoup.connect(this.strUrl).timeout(CONNECT_Time_OUT).get();
 					} catch (IOException ex) {
 						System.out.println("超时限制太短,"+CONNECT_Time_OUT+"当前超时限制已经增加两次，不再自动增加！");
-						CONNECT_Time_OUT=500;
+						this.CONNECT_Time_OUT=500;
 					}
 				}
 			}
@@ -104,14 +104,14 @@ public class JingDong extends TSZPage{
 	 * 设置连接超时限制时间
 	 **/
 	public int getConnectionTimeout() {
-		return CONNECT_Time_OUT;
+		return this.CONNECT_Time_OUT;
 	}
 	
 	/**
 	 * 获取连接超时限制时间
 	 * */
 	public void setConnectionTimeout(int Timeout) {
-		CONNECT_Time_OUT=Timeout;
+		this.CONNECT_Time_OUT=Timeout;
 	}
 	
 	/**获取页面URL*/
