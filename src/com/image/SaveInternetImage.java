@@ -20,11 +20,14 @@ public class SaveInternetImage {
 		  /*此处也可用BufferedInputStream与BufferedOutputStream*/
 		  DataOutputStream out = new DataOutputStream(new FileOutputStream(savePath));
 		  /*将参数savePath，即将截取的图片的存储在本地地址赋值给out输出流所指定的地址*/
-		  byte[] buffer = new byte[4096];
+		  byte[] buffer = new byte[8192];
 		  int count = 0;
 		  while ((count = in.read(buffer)) > 0)/*将输入流以字节的形式读取并写入buffer中*/
 		  {
-		  out.write(buffer, 0, count);
+			  out.write(buffer, 0, count);
+		  }
+		  if(buffer.length==0){
+			  return false;
 		  }
 		  out.close();/*后面三行为关闭输入输出流以及网络资源的固定格式*/
 		  in.close();
@@ -48,9 +51,9 @@ public class SaveInternetImage {
   		  String filePath = "E:";
   		  /*调用函数，并且进行传参*/ 
   		  if(pic.saveUrlAs(photoUrl, filePath + fileName)){
-  		  System.out.println("Run ok!\n Get URL file " );
-  		  System.out.println(filePath);
-  		  System.out.println(fileName);
+	  		  System.out.println("Run ok!\n Get URL file " );
+	  		  System.out.println(filePath);
+	  		  System.out.println(fileName);
   		  }
   	} 
 }
