@@ -195,7 +195,7 @@ public class Main extends java.awt.Frame {
 								valCode = new OCR().recognizeText(new File(path), "png");
 								System.out.println("½âÎö£º" + valCode.trim());
 								
-								if(mysql.executeSql(conn, "update product set JingDongPrice='"+valCode+"'")>0){ 	
+								if(mysql.executeSql(conn, "update product set JingDongPrice='"+valCode+"' where ItemNumber="+ rs.getString(1)+"")>0){ 	
 									list2.add(valCode); 
 								}
 								
@@ -234,7 +234,7 @@ public class Main extends java.awt.Frame {
 	}
 
 	private void jLayeredPane1MouseClicked(java.awt.event.MouseEvent evt) {
-		System.exit(0);
+//		System.exit(0);
 	}
 
 	static Connection conn = JingDongDB.mysql.getConnetction("test");
